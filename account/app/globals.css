@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary-color: #00a392;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+}
+
+.custom-truncate {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.pagination button {
+    margin-right: 0.5rem;
+    cursor: pointer;
+    padding: 4px 12px;
+}
+
+.pagination button:disabled {
+    background-color: #333;
+    color: #fff;
+    cursor: not-allowed;
+}

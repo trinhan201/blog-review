@@ -1,2 +1,8 @@
+/client/.env
 /client/.next
 /client/node_modules
+/server/.env
+/server/node_modules
+/account/.env
+/account/.next
+/account/node_modules
