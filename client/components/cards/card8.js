@@ -12,10 +12,10 @@ const Card8 = (props) => {
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
             }}
-            className="block h-[430px] md:h-[220px] lg:h-[320px] cursor-pointer"
+            className="block w-full h-[430px] md:h-[220px] lg:h-[320px] cursor-pointer"
         >
             <div className="flex items-center w-full h-full bg-black/25 drop-shadow-lg hover:bg-[#00a392]/20 ease-in duration-[0.5s]">
-                <div className="text-white text-center px-[10px] py-[15px]">
+                <div className="w-full text-white text-center px-[10px] py-[15px]">
                     <span className="block uppercase text-[1.4rem] md:text-[1.1rem] lg:text-[1.2rem] font-semibold mb-3.5">
                         {props.category}
                     </span>
