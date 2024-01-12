@@ -9,7 +9,8 @@ import {
     getPostByIdController,
     getAllPostsPageController,
     getAllOthersPostsPageController,
-    getHomePostsController,
+    getHome1PostsController,
+    getHome2PostsController,
     getHomeBeautyPostsController,
     getDetailPostsController,
     getDetailRelatedPostsController,
@@ -33,7 +34,8 @@ router.delete('/delete/:postId', verifyToken, deletePostByIdController);
 router.get('/get-all-posts-page', getAllPostsPageController);
 router.get('/get-all-others-posts-page', getAllOthersPostsPageController);
 // Home page
-router.get('/get-home-posts', getHomePostsController);
+router.get('/get-home1-posts', getHome1PostsController);
+router.get('/get-home2-posts', getHome2PostsController);
 router.get('/get-home-beauty-posts', getHomeBeautyPostsController);
 
 // Detail page

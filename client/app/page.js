@@ -22,7 +22,11 @@ export default function Home() {
         { revalidateOnFocus: false },
     );
 
-    const { data: homeData, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/post/get-home-posts`, fetcher, {
+    const { data: homeData1, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/post/get-home1-posts`, fetcher, {
+        revalidateOnFocus: false,
+    });
+
+    const { data: homeData2 } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/post/get-home2-posts`, fetcher, {
         revalidateOnFocus: false,
     });
 
@@ -66,7 +70,7 @@ export default function Home() {
                                     </div>
                                 ) : (
                                     <div className="rotating-text-wrapper whitespace-nowrap">
-                                        {homeData?.newPosts?.slice(0, 3)?.map((nps, index) => {
+                                        {homeData1?.newPosts?.slice(0, 3)?.map((nps, index) => {
                                             return (
                                                 <h3 key={index} className="w-[200px] md:w-full truncate cursor-default">
                                                     {nps?.title}
@@ -78,16 +82,16 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="md:flex w-full h-fit gap-1.5">
-                            {homeData?.newPosts?.length === 0 ? (
+                            {homeData1?.newPosts?.length === 0 ? (
                                 <p>Chưa có bài viết nào</p>
                             ) : (
                                 <Link
                                     prefetch
-                                    href={`/${setSlug(homeData?.newPosts[0]?.category)}/${setSlug(
-                                        homeData?.newPosts[0]?.title,
-                                    )}?requestId=${homeData?.newPosts[0]?._id}`}
+                                    href={`/${setSlug(homeData1?.newPosts[0]?.category)}/${setSlug(
+                                        homeData1?.newPosts[0]?.title,
+                                    )}?requestId=${homeData1?.newPosts[0]?._id}`}
                                     style={{
-                                        backgroundImage: `url("${homeData?.newPosts[0]?.thumbnailImg}")`,
+                                        backgroundImage: `url("${homeData1?.newPosts[0]?.thumbnailImg}")`,
                                         backgroundRepeat: 'no-repeat',
                                         backgroundPosition: 'center',
                                         backgroundSize: 'cover',
@@ -97,22 +101,22 @@ export default function Home() {
                                     <div className="flex items-end w-full h-full bg-gradient-to-b from-black/5 to-black/60 drop-shadow-lg hover:bg-red-700/20 ease-in duration-[0.5s]">
                                         <div className="w-full text-white p-[24px]">
                                             <span className="uppercase text-[1.2rem]">
-                                                {homeData?.newPosts[0]?.category}
+                                                {homeData1?.newPosts[0]?.category}
                                             </span>
                                             <h3 className="w-full text-[2rem] md:text-[2.4rem] font-semibold mt-[12px] mb-[8px] custom-truncate">
-                                                {homeData?.newPosts[0]?.title}
+                                                {homeData1?.newPosts[0]?.title}
                                             </h3>
                                             <span className="text-[1.25rem]">
-                                                <span>{getAuthor(homeData?.newPosts[0]?.author)?.userName}</span>
+                                                <span>{getAuthor(homeData1?.newPosts[0]?.author)?.userName}</span>
                                                 <span className="mx-2">-</span>
-                                                <span>{formatVNDateTime(homeData?.newPosts[0]?.createdAt)}</span>
+                                                <span>{formatVNDateTime(homeData1?.newPosts[0]?.createdAt)}</span>
                                             </span>
                                         </div>
                                     </div>
                                 </Link>
                             )}
                             <div className="hide-scrollbar whitespace-nowrap md:whitespace-normal overflow-x-auto md:overflow-visible md:grid grid-cols-2 gap-1.5 flex-1 space-x-1 md:space-x-0">
-                                {homeData?.newPosts?.slice(1, 5)?.map((nps, index) => {
+                                {homeData1?.newPosts?.slice(1, 5)?.map((nps, index) => {
                                     return (
                                         <Link
                                             key={index}
@@ -157,20 +161,20 @@ export default function Home() {
                                     </Link>
                                 </div>
                                 <div className="block md:flex mt-[20px] gap-6 lg:gap-8">
-                                    {homeData?.moviePosts?.length === 0 ? (
+                                    {homeData1?.moviePosts?.length === 0 ? (
                                         <p>Chưa có bài viết nào</p>
                                     ) : (
                                         <Link
                                             prefetch
-                                            href={`/${setSlug(homeData?.moviePosts[0]?.category)}/${setSlug(
-                                                homeData?.moviePosts[0]?.title,
-                                            )}?requestId=${homeData?.moviePosts[0]?._id}`}
+                                            href={`/${setSlug(homeData1?.moviePosts[0]?.category)}/${setSlug(
+                                                homeData1?.moviePosts[0]?.title,
+                                            )}?requestId=${homeData1?.moviePosts[0]?._id}`}
                                             className="block group w-full md:w-[226px] lg:w-[341px]"
                                         >
-                                            {homeData?.moviePosts[0] && (
+                                            {homeData1?.moviePosts[0] && (
                                                 <img
-                                                    src={homeData?.moviePosts[0]?.thumbnailImg}
-                                                    alt={homeData?.moviePosts[0]?.title}
+                                                    src={homeData1?.moviePosts[0]?.thumbnailImg}
+                                                    alt={homeData1?.moviePosts[0]?.title}
                                                     className="w-full h-[180px] md:h-[140px] lg:h-[222px] object-cover cursor-pointer"
                                                 />
                                             )}
@@ -181,37 +185,37 @@ export default function Home() {
                                                         href="/phim-anh"
                                                         className="uppercase text-[1.2rem] hover:text-[var(--secondary-color)] cursor-pointer"
                                                     >
-                                                        {homeData?.moviePosts[0]?.category}
+                                                        {homeData1?.moviePosts[0]?.category}
                                                     </Link>
                                                 </object>
                                                 <h3 className="w-full font-semibold md:text-[1.6rem] lg:text-[1.8rem] group-hover:text-[var(--secondary-color)] cursor-pointer custom-truncate">
-                                                    {homeData?.moviePosts[0]?.title}
+                                                    {homeData1?.moviePosts[0]?.title}
                                                 </h3>
                                                 <span className="flex items-center gap-2 text-[1.25rem]">
                                                     <object>
                                                         <Link
                                                             prefetch
                                                             href={`/tac-gia/${
-                                                                getAuthor(homeData?.moviePosts[0]?.author)?.idName
+                                                                getAuthor(homeData1?.moviePosts[0]?.author)?.idName
                                                             }`}
                                                             className="hover:text-[var(--secondary-color)] cursor-pointer"
                                                         >
-                                                            {getAuthor(homeData?.moviePosts[0]?.author)?.userName}
+                                                            {getAuthor(homeData1?.moviePosts[0]?.author)?.userName}
                                                         </Link>
                                                     </object>
                                                     <span>-</span>
                                                     <span className="text-[#888888]">
-                                                        {formatVNDateTime(homeData?.moviePosts[0]?.createdAt)}
+                                                        {formatVNDateTime(homeData1?.moviePosts[0]?.createdAt)}
                                                     </span>
                                                 </span>
                                                 <p className="w-full text-[1.25rem] text-[#888888] mt-3 custom-truncate line-clamp3">
-                                                    {getContent(homeData?.moviePosts[0]?.content)}
+                                                    {getContent(homeData1?.moviePosts[0]?.content)}
                                                 </p>
                                             </div>
                                         </Link>
                                     )}
                                     <div className="flex-1 flex flex-col gap-6 lg:gap-8 mt-10 md:mt-0">
-                                        {homeData?.moviePosts?.slice(1, 5)?.map((mps, index) => {
+                                        {homeData1?.moviePosts?.slice(1, 5)?.map((mps, index) => {
                                             return (
                                                 <Card2
                                                     key={index}
@@ -289,20 +293,20 @@ export default function Home() {
                                             </Link>
                                         </div>
                                         <div className="flex flex-col mt-[20px] gap-6 lg:gap-8">
-                                            {homeData?.lifePosts?.length === 0 ? (
+                                            {homeData1?.lifePosts?.length === 0 ? (
                                                 <p>Chưa có bài viết nào</p>
                                             ) : (
                                                 <Link
                                                     prefetch
-                                                    href={`/${setSlug(homeData?.lifePosts[0]?.category)}/${setSlug(
-                                                        homeData?.lifePosts[0]?.title,
-                                                    )}?requestId=${homeData?.lifePosts[0]?._id}`}
+                                                    href={`/${setSlug(homeData1?.lifePosts[0]?.category)}/${setSlug(
+                                                        homeData1?.lifePosts[0]?.title,
+                                                    )}?requestId=${homeData1?.lifePosts[0]?._id}`}
                                                     className="block group w-full"
                                                 >
-                                                    {homeData?.lifePosts[0] && (
+                                                    {homeData1?.lifePosts[0] && (
                                                         <img
-                                                            src={homeData?.lifePosts[0]?.thumbnailImg}
-                                                            alt={homeData?.lifePosts[0]?.title}
+                                                            src={homeData1?.lifePosts[0]?.thumbnailImg}
+                                                            alt={homeData1?.lifePosts[0]?.title}
                                                             className="w-full h-[180px] md:h-[240px] lg:h-[222px] object-cover cursor-pointer"
                                                         />
                                                     )}
@@ -313,41 +317,41 @@ export default function Home() {
                                                                 href="/doi-song"
                                                                 className="uppercase text-[1.2rem] hover:text-[var(--secondary-color)] cursor-pointer"
                                                             >
-                                                                {homeData?.lifePosts[0]?.category}
+                                                                {homeData1?.lifePosts[0]?.category}
                                                             </Link>
                                                         </object>
                                                         <h3 className="w-full font-semibold md:text-[1.6rem] lg:text-[1.8rem] group-hover:text-[var(--secondary-color)] cursor-pointer custom-truncate">
-                                                            {homeData?.lifePosts[0]?.title}
+                                                            {homeData1?.lifePosts[0]?.title}
                                                         </h3>
                                                         <span className="flex items-center gap-2 text-[1.25rem]">
                                                             <object>
                                                                 <Link
                                                                     prefetch
                                                                     href={`/tac-gia/${
-                                                                        getAuthor(homeData?.lifePosts[0]?.author)
+                                                                        getAuthor(homeData1?.lifePosts[0]?.author)
                                                                             ?.idName
                                                                     }`}
                                                                     className="hover:text-[var(--secondary-color)] cursor-pointer"
                                                                 >
                                                                     {
-                                                                        getAuthor(homeData?.lifePosts[0]?.author)
+                                                                        getAuthor(homeData1?.lifePosts[0]?.author)
                                                                             ?.userName
                                                                     }
                                                                 </Link>
                                                             </object>
                                                             <span>-</span>
                                                             <span className="text-[#888888]">
-                                                                {formatVNDateTime(homeData?.lifePosts[0]?.createdAt)}
+                                                                {formatVNDateTime(homeData1?.lifePosts[0]?.createdAt)}
                                                             </span>
                                                         </span>
                                                         <p className="w-full text-[1.25rem] text-[#888888] mt-3 custom-truncate line-clamp3">
-                                                            {getContent(homeData?.lifePosts[0]?.content)}
+                                                            {getContent(homeData1?.lifePosts[0]?.content)}
                                                         </p>
                                                     </div>
                                                 </Link>
                                             )}
                                             <div className="flex-1 flex flex-col gap-6 lg:gap-8 mt-10 md:mt-0">
-                                                {homeData?.lifePosts?.slice(1, 3)?.map((mps, index) => {
+                                                {homeData1?.lifePosts?.slice(1, 3)?.map((mps, index) => {
                                                     return (
                                                         <Card2
                                                             key={index}
@@ -371,20 +375,20 @@ export default function Home() {
                                             </Link>
                                         </div>
                                         <div className="flex flex-col mt-[20px] gap-6 lg:gap-8">
-                                            {homeData?.foodPosts?.length === 0 ? (
+                                            {homeData1?.foodPosts?.length === 0 ? (
                                                 <p>Chưa có bài viết nào</p>
                                             ) : (
                                                 <Link
                                                     prefetch
-                                                    href={`/${setSlug(homeData?.foodPosts[0]?.category)}/${setSlug(
-                                                        homeData?.foodPosts[0]?.title,
-                                                    )}?requestId=${homeData?.foodPosts[0]?._id}`}
+                                                    href={`/${setSlug(homeData1?.foodPosts[0]?.category)}/${setSlug(
+                                                        homeData1?.foodPosts[0]?.title,
+                                                    )}?requestId=${homeData1?.foodPosts[0]?._id}`}
                                                     className="block group w-full"
                                                 >
-                                                    {homeData?.foodPosts[0] && (
+                                                    {homeData1?.foodPosts[0] && (
                                                         <img
-                                                            src={homeData?.foodPosts[0]?.thumbnailImg}
-                                                            alt={homeData?.foodPosts[0]?.title}
+                                                            src={homeData1?.foodPosts[0]?.thumbnailImg}
+                                                            alt={homeData1?.foodPosts[0]?.title}
                                                             className="w-full h-[180px] md:h-[240px] lg:h-[222px] object-cover cursor-pointer"
                                                         />
                                                     )}
@@ -395,41 +399,41 @@ export default function Home() {
                                                                 href="/am-thuc"
                                                                 className="uppercase text-[1.2rem] hover:text-[var(--secondary-color)] cursor-pointer"
                                                             >
-                                                                {homeData?.foodPosts[0]?.category}
+                                                                {homeData1?.foodPosts[0]?.category}
                                                             </Link>
                                                         </object>
                                                         <h3 className="w-full font-semibold md:text-[1.6rem] lg:text-[1.8rem] group-hover:text-[var(--secondary-color)] cursor-pointer custom-truncate">
-                                                            {homeData?.foodPosts[0]?.title}
+                                                            {homeData1?.foodPosts[0]?.title}
                                                         </h3>
                                                         <span className="flex items-center gap-2 text-[1.25rem]">
                                                             <object>
                                                                 <Link
                                                                     prefetch
                                                                     href={`/tac-gia/${
-                                                                        getAuthor(homeData?.foodPosts[0]?.author)
+                                                                        getAuthor(homeData1?.foodPosts[0]?.author)
                                                                             ?.idName
                                                                     }`}
                                                                     className="hover:text-[var(--secondary-color)] cursor-pointer"
                                                                 >
                                                                     {
-                                                                        getAuthor(homeData?.foodPosts[0]?.author)
+                                                                        getAuthor(homeData1?.foodPosts[0]?.author)
                                                                             ?.userName
                                                                     }
                                                                 </Link>
                                                             </object>
                                                             <span>-</span>
                                                             <span className="text-[#888888]">
-                                                                {formatVNDateTime(homeData?.foodPosts[0]?.createdAt)}
+                                                                {formatVNDateTime(homeData1?.foodPosts[0]?.createdAt)}
                                                             </span>
                                                         </span>
                                                         <p className="w-full text-[1.25rem] text-[#888888] mt-3 custom-truncate line-clamp3">
-                                                            {getContent(homeData?.foodPosts[0]?.content)}
+                                                            {getContent(homeData1?.foodPosts[0]?.content)}
                                                         </p>
                                                     </div>
                                                 </Link>
                                             )}
                                             <div className="flex-1 flex flex-col gap-6 lg:gap-8 mt-10 md:mt-0">
-                                                {homeData?.foodPosts?.slice(1, 3)?.map((mps, index) => {
+                                                {homeData1?.foodPosts?.slice(1, 3)?.map((mps, index) => {
                                                     return (
                                                         <Card2
                                                             key={index}
@@ -456,10 +460,10 @@ export default function Home() {
                                     </Link>
                                 </div>
                                 <div className="flex flex-col mt-[20px] gap-10 md:gap-9">
-                                    {homeData?.techPosts?.length === 0 ? (
+                                    {homeData1?.techPosts?.length === 0 ? (
                                         <p>Chưa có bài viết nào</p>
                                     ) : (
-                                        homeData?.techPosts?.map((tps, index) => {
+                                        homeData1?.techPosts?.map((tps, index) => {
                                             const user = userData?.data?.find((aus) => aus?._id === tps?.author);
                                             return (
                                                 <Card4
@@ -503,10 +507,10 @@ export default function Home() {
                                     </Link>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 mt-[20px] gap-8 md:gap-6 lg:gap-9 xl:gap-10">
-                                    {homeData?.gamePosts?.length === 0 ? (
+                                    {homeData1?.gamePosts?.length === 0 ? (
                                         <p>Chưa có bài viết nào</p>
                                     ) : (
-                                        homeData?.gamePosts?.map((gps, index) => {
+                                        homeData1?.gamePosts?.map((gps, index) => {
                                             const user = userData?.data?.find((aus) => aus?._id === gps?.author);
                                             return (
                                                 <Card5
@@ -610,10 +614,10 @@ export default function Home() {
                                     <span className="flex-1 h-[4px] bg-[var(--fifth-color)]"></span>
                                 </div>
                                 <div className="flex flex-col gap-5 mt-[20px]">
-                                    {homeData?.popularPosts?.length === 0 ? (
+                                    {homeData2?.popularPosts?.length === 0 ? (
                                         <p>Chưa có bài viết nào</p>
                                     ) : (
-                                        homeData?.popularPosts?.map((pps, index) => {
+                                        homeData2?.popularPosts?.map((pps, index) => {
                                             return (
                                                 <Card6
                                                     key={index}
@@ -633,10 +637,10 @@ export default function Home() {
                                     <span className="flex-1 h-[4px] bg-[var(--sixth-color)]"></span>
                                 </div>
                                 <div className="flex flex-col gap-5 mt-[20px]">
-                                    {homeData?.suggestPosts?.length === 0 ? (
+                                    {homeData2?.suggestPosts?.length === 0 ? (
                                         <p>Chưa có bài viết nào</p>
                                     ) : (
-                                        homeData?.suggestPosts?.map((sps, index) => {
+                                        homeData2?.suggestPosts?.map((sps, index) => {
                                             const user = userData?.data?.find((aus) => aus?._id === sps?.author);
                                             return (
                                                 <Card7
@@ -665,7 +669,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Phim ảnh</span>
-                                        <span>{homeData?.allMoviePosts}</span>
+                                        <span>{homeData2?.allMoviePosts}</span>
                                     </Link>
                                     <Link
                                         prefetch
@@ -673,7 +677,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Làm đẹp</span>
-                                        <span>{homeData?.allBeautyPosts}</span>
+                                        <span>{homeData2?.allBeautyPosts}</span>
                                     </Link>
                                     <Link
                                         prefetch
@@ -681,7 +685,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Đời sống</span>
-                                        <span>{homeData?.allLifePosts}</span>
+                                        <span>{homeData2?.allLifePosts}</span>
                                     </Link>
                                     <Link
                                         prefetch
@@ -689,7 +693,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Ẩm thực</span>
-                                        <span>{homeData?.allFoodPosts}</span>
+                                        <span>{homeData2?.allFoodPosts}</span>
                                     </Link>
                                     <Link
                                         prefetch
@@ -697,7 +701,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Công nghệ</span>
-                                        <span>{homeData?.allTechPosts}</span>
+                                        <span>{homeData2?.allTechPosts}</span>
                                     </Link>
                                     <Link
                                         prefetch
@@ -705,7 +709,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Trò chơi</span>
-                                        <span>{homeData?.allGamePosts}</span>
+                                        <span>{homeData2?.allGamePosts}</span>
                                     </Link>
                                 </div>
                             </div>
