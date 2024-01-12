@@ -1,5 +1,5 @@
 const getContent = (text) => {
-    const plainString = text.replace(/<[^>]+>/g, '');
+    const plainString = text?.replace(/<[^>]+>/g, '');
     return plainString;
 };
 

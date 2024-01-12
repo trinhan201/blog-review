@@ -11,6 +11,7 @@ import {
     getAllOthersPostsPageController,
     getHome1PostsController,
     getHome2PostsController,
+    getHome3PostsController,
     getHomeBeautyPostsController,
     getDetailPostsController,
     getDetailRelatedPostsController,
@@ -36,6 +37,7 @@ router.get('/get-all-others-posts-page', getAllOthersPostsPageController);
 // Home page
 router.get('/get-home1-posts', getHome1PostsController);
 router.get('/get-home2-posts', getHome2PostsController);
+router.get('/get-home3-posts', getHome3PostsController);
 router.get('/get-home-beauty-posts', getHomeBeautyPostsController);
 
 // Detail page

@@ -30,6 +30,10 @@ export default function Home() {
         revalidateOnFocus: false,
     });
 
+    const { data: homeData3 } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/post/get-home3-posts`, fetcher, {
+        revalidateOnFocus: false,
+    });
+
     const { data: userData } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/user/public-info`, fetcher, {
         revalidateOnFocus: false,
     });
@@ -375,20 +379,20 @@ export default function Home() {
                                             </Link>
                                         </div>
                                         <div className="flex flex-col mt-[20px] gap-6 lg:gap-8">
-                                            {homeData1?.foodPosts?.length === 0 ? (
+                                            {homeData2?.foodPosts?.length === 0 ? (
                                                 <p>Chưa có bài viết nào</p>
                                             ) : (
                                                 <Link
                                                     prefetch
-                                                    href={`/${setSlug(homeData1?.foodPosts[0]?.category)}/${setSlug(
-                                                        homeData1?.foodPosts[0]?.title,
-                                                    )}?requestId=${homeData1?.foodPosts[0]?._id}`}
+                                                    href={`/${setSlug(homeData2?.foodPosts[0]?.category)}/${setSlug(
+                                                        homeData2?.foodPosts[0]?.title,
+                                                    )}?requestId=${homeData2?.foodPosts[0]?._id}`}
                                                     className="block group w-full"
                                                 >
-                                                    {homeData1?.foodPosts[0] && (
+                                                    {homeData2?.foodPosts[0] && (
                                                         <img
-                                                            src={homeData1?.foodPosts[0]?.thumbnailImg}
-                                                            alt={homeData1?.foodPosts[0]?.title}
+                                                            src={homeData2?.foodPosts[0]?.thumbnailImg}
+                                                            alt={homeData2?.foodPosts[0]?.title}
                                                             className="w-full h-[180px] md:h-[240px] lg:h-[222px] object-cover cursor-pointer"
                                                         />
                                                     )}
@@ -399,41 +403,41 @@ export default function Home() {
                                                                 href="/am-thuc"
                                                                 className="uppercase text-[1.2rem] hover:text-[var(--secondary-color)] cursor-pointer"
                                                             >
-                                                                {homeData1?.foodPosts[0]?.category}
+                                                                {homeData2?.foodPosts[0]?.category}
                                                             </Link>
                                                         </object>
                                                         <h3 className="w-full font-semibold md:text-[1.6rem] lg:text-[1.8rem] group-hover:text-[var(--secondary-color)] cursor-pointer custom-truncate">
-                                                            {homeData1?.foodPosts[0]?.title}
+                                                            {homeData2?.foodPosts[0]?.title}
                                                         </h3>
                                                         <span className="flex items-center gap-2 text-[1.25rem]">
                                                             <object>
                                                                 <Link
                                                                     prefetch
                                                                     href={`/tac-gia/${
-                                                                        getAuthor(homeData1?.foodPosts[0]?.author)
+                                                                        getAuthor(homeData2?.foodPosts[0]?.author)
                                                                             ?.idName
                                                                     }`}
                                                                     className="hover:text-[var(--secondary-color)] cursor-pointer"
                                                                 >
                                                                     {
-                                                                        getAuthor(homeData1?.foodPosts[0]?.author)
+                                                                        getAuthor(homeData2?.foodPosts[0]?.author)
                                                                             ?.userName
                                                                     }
                                                                 </Link>
                                                             </object>
                                                             <span>-</span>
                                                             <span className="text-[#888888]">
-                                                                {formatVNDateTime(homeData1?.foodPosts[0]?.createdAt)}
+                                                                {formatVNDateTime(homeData2?.foodPosts[0]?.createdAt)}
                                                             </span>
                                                         </span>
                                                         <p className="w-full text-[1.25rem] text-[#888888] mt-3 custom-truncate line-clamp3">
-                                                            {getContent(homeData1?.foodPosts[0]?.content)}
+                                                            {getContent(homeData2?.foodPosts[0]?.content)}
                                                         </p>
                                                     </div>
                                                 </Link>
                                             )}
                                             <div className="flex-1 flex flex-col gap-6 lg:gap-8 mt-10 md:mt-0">
-                                                {homeData1?.foodPosts?.slice(1, 3)?.map((mps, index) => {
+                                                {homeData2?.foodPosts?.slice(1, 3)?.map((mps, index) => {
                                                     return (
                                                         <Card2
                                                             key={index}
@@ -460,10 +464,10 @@ export default function Home() {
                                     </Link>
                                 </div>
                                 <div className="flex flex-col mt-[20px] gap-10 md:gap-9">
-                                    {homeData1?.techPosts?.length === 0 ? (
+                                    {homeData2?.techPosts?.length === 0 ? (
                                         <p>Chưa có bài viết nào</p>
                                     ) : (
-                                        homeData1?.techPosts?.map((tps, index) => {
+                                        homeData2?.techPosts?.map((tps, index) => {
                                             const user = userData?.data?.find((aus) => aus?._id === tps?.author);
                                             return (
                                                 <Card4
@@ -507,10 +511,10 @@ export default function Home() {
                                     </Link>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 mt-[20px] gap-8 md:gap-6 lg:gap-9 xl:gap-10">
-                                    {homeData1?.gamePosts?.length === 0 ? (
+                                    {homeData2?.gamePosts?.length === 0 ? (
                                         <p>Chưa có bài viết nào</p>
                                     ) : (
-                                        homeData1?.gamePosts?.map((gps, index) => {
+                                        homeData2?.gamePosts?.map((gps, index) => {
                                             const user = userData?.data?.find((aus) => aus?._id === gps?.author);
                                             return (
                                                 <Card5
@@ -614,10 +618,10 @@ export default function Home() {
                                     <span className="flex-1 h-[4px] bg-[var(--fifth-color)]"></span>
                                 </div>
                                 <div className="flex flex-col gap-5 mt-[20px]">
-                                    {homeData2?.popularPosts?.length === 0 ? (
+                                    {homeData3?.popularPosts?.length === 0 ? (
                                         <p>Chưa có bài viết nào</p>
                                     ) : (
-                                        homeData2?.popularPosts?.map((pps, index) => {
+                                        homeData3?.popularPosts?.map((pps, index) => {
                                             return (
                                                 <Card6
                                                     key={index}
@@ -637,10 +641,10 @@ export default function Home() {
                                     <span className="flex-1 h-[4px] bg-[var(--sixth-color)]"></span>
                                 </div>
                                 <div className="flex flex-col gap-5 mt-[20px]">
-                                    {homeData2?.suggestPosts?.length === 0 ? (
+                                    {homeData3?.suggestPosts?.length === 0 ? (
                                         <p>Chưa có bài viết nào</p>
                                     ) : (
-                                        homeData2?.suggestPosts?.map((sps, index) => {
+                                        homeData3?.suggestPosts?.map((sps, index) => {
                                             const user = userData?.data?.find((aus) => aus?._id === sps?.author);
                                             return (
                                                 <Card7
@@ -669,7 +673,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Phim ảnh</span>
-                                        <span>{homeData2?.allMoviePosts}</span>
+                                        <span>{homeData3?.allMoviePosts}</span>
                                     </Link>
                                     <Link
                                         prefetch
@@ -677,7 +681,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Làm đẹp</span>
-                                        <span>{homeData2?.allBeautyPosts}</span>
+                                        <span>{homeData3?.allBeautyPosts}</span>
                                     </Link>
                                     <Link
                                         prefetch
@@ -685,7 +689,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Đời sống</span>
-                                        <span>{homeData2?.allLifePosts}</span>
+                                        <span>{homeData3?.allLifePosts}</span>
                                     </Link>
                                     <Link
                                         prefetch
@@ -693,7 +697,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Ẩm thực</span>
-                                        <span>{homeData2?.allFoodPosts}</span>
+                                        <span>{homeData3?.allFoodPosts}</span>
                                     </Link>
                                     <Link
                                         prefetch
@@ -701,7 +705,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Công nghệ</span>
-                                        <span>{homeData2?.allTechPosts}</span>
+                                        <span>{homeData3?.allTechPosts}</span>
                                     </Link>
                                     <Link
                                         prefetch
@@ -709,7 +713,7 @@ export default function Home() {
                                         className="flex items-center justify-between font-semibold text-[1.35rem] hover:text-[var(--primary-color)] transition-all"
                                     >
                                         <span>Trò chơi</span>
-                                        <span>{homeData2?.allGamePosts}</span>
+                                        <span>{homeData3?.allGamePosts}</span>
                                     </Link>
                                 </div>
                             </div>

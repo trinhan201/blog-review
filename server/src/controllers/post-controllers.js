@@ -127,9 +127,6 @@ export const getHome1PostsController = async (req, res) => {
         const newPosts = await Post.find({ isDraft: false }).sort({ createdAt: -1 }).limit(5);
         const moviePosts = await Post.find({ category: 'Phim ảnh', isDraft: false }).sort({ createdAt: -1 }).limit(5);
         const lifePosts = await Post.find({ category: 'Đời sống', isDraft: false }).sort({ createdAt: -1 }).limit(3);
-        const foodPosts = await Post.find({ category: 'Ẩm thực', isDraft: false }).sort({ createdAt: -1 }).limit(3);
-        const techPosts = await Post.find({ category: 'Công nghệ', isDraft: false }).sort({ createdAt: -1 }).limit(5);
-        const gamePosts = await Post.find({ category: 'Trò chơi', isDraft: false }).sort({ createdAt: -1 }).limit(6);
 
         res.status(200).json({
             code: 200,
@@ -137,6 +134,21 @@ export const getHome1PostsController = async (req, res) => {
             newPosts,
             moviePosts,
             lifePosts,
+        });
+    } catch (error) {
+        res.status(400).json({ code: 400, message: 'Unexpected error' });
+    }
+};
+
+export const getHome2PostsController = async (req, res) => {
+    try {
+        const foodPosts = await Post.find({ category: 'Ẩm thực', isDraft: false }).sort({ createdAt: -1 }).limit(3);
+        const techPosts = await Post.find({ category: 'Công nghệ', isDraft: false }).sort({ createdAt: -1 }).limit(5);
+        const gamePosts = await Post.find({ category: 'Trò chơi', isDraft: false }).sort({ createdAt: -1 }).limit(6);
+
+        res.status(200).json({
+            code: 200,
+            message: 'Successfully',
             foodPosts,
             techPosts,
             gamePosts,
@@ -146,7 +158,7 @@ export const getHome1PostsController = async (req, res) => {
     }
 };
 
-export const getHome2PostsController = async (req, res) => {
+export const getHome3PostsController = async (req, res) => {
     try {
         const random = Math.floor(Math.random() * 10);
 
